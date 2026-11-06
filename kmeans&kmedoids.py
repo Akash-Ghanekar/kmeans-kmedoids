@@ -41,44 +41,5 @@ for name,model in models.items():
   print("Silhouette score:",silhouette_score(x_test,pred))
   print("-----------------------")
 
-from sklearn.model_selection import KFold
-kf = KFold(n_splits=5,shuffle=True,random_state=42)
 
-km_score = []
-kmed_score = []
-
-from numpy import test
-for train_index,test_index in kf.split(x):
-  x_train = x[train_index]
-  x_test = x[test_index]
-
-
-  km = KMeans(n_init=10,n_clusters=5,random_state=42)
-  kmed = KMedoids(n_clusters=5,random_state=42)
-
-  km.fit(x_train)
-  kmed.fit(x_train)
-
-  km_pred = km.predict(x_test)
-  kmed_pred = kmed.predict(x_test)
-
-  km_score.append(silhouette_score(x_test,km_pred))
-  kmed_score.append(silhouette_score(x_test,kmed_pred))
-
-print("Cross Validation")
-print("KMeans:",sum(km_score)/5)
-print("kmed:",sum(kmed_score)/5)
-
-final_model = KMeans(n_init=10,n_clusters=5,random_state=42)
-data["Cluster"] = final_model.fit_predict(x)
-
-print("cust group")
-print(data.groupby("Cluster")[["Annual Income (k$)","Spending Score (1-100)"]].mean())
-
-import matplotlib.pyplot as plt
-plt.scatter(x[:,0],x[:,1],c = data["Cluster"])
-plt.xlabel("Annual income")
-plt.ylabel("spending score")
-plt.title("Mall csutomers")
-plt.show()
 
