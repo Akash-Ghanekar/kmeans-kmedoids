@@ -13,7 +13,7 @@ from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import silhouette_score
 
-!pip install scikit-learn-extra
+# !pip install scikit-learn-extra
 
 from sklearn_extra.cluster import KMedoids
 
